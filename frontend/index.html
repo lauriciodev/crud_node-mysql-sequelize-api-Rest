@@ -21,7 +21,9 @@
           <input placeholder="nome" type="text" id="nome" />
           <input placeholder="idade" type="number" id="idade" />
           <input placeholder="email" type="text" id="email" />
-          <button type="button" class="btn">Criar</button>
+          <button type="button" class="btn" onclick="createData()">
+            Criar
+          </button>
         </form>
       </div>
 
@@ -91,6 +93,28 @@
           console.log(erro);
         });
 
+      function createData() {
+        let nome = document.getElementById("nome").value;
+        let idade = document.getElementById("idade").value;
+        let email = document.getElementById("email").value;
+
+        let user = {
+          nome: nome,
+          idade: idade,
+          email: email,
+        };
+
+        axios
+          .post("http://localhost:3000/user", user)
+          .then((response) => {
+            alert("usuario criado com sucesso!");
+            window.location.reload();
+          })
+          .catch((erro) => {
+            console.log(erro);
+          });
+      }
+
       function saveData() {
         let id = document.getElementById("index").value;
         let nome = document.getElementById("nome__edit").value;
@@ -118,7 +142,10 @@
         let element = event.target;
         let id = element.dataset.id;
         if (element.id == "remove__btn") {
-          console.log("removendo");
+          if (confirm("deseja realmente deletar este usuario ?")) {
+            axios.delete("http://localhost:3000/user/" + id);
+            window.location.reload();
+          }
         }
         if (element.id == "edit__btn") {
           axios.get("http://localhost:3000/user/" + id).then((response) => {

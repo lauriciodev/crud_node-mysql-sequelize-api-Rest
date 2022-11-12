@@ -10,17 +10,33 @@
   <body>
     <div class="container">
       <!-- call modal-->
-      <button class="callModal">novo</button>
+      <button class="callModal" onclick="changeModal()">novo</button>
 
       <!-- modal create-->
       <div class="modal__create">
-        <button class="close__modal__create">X</button>
+        <button class="close__modal__create" onclick="changeModal()">X</button>
         <form>
           <h1>novo usuario</h1>
+
           <input placeholder="nome" type="text" id="nome" />
           <input placeholder="idade" type="number" id="idade" />
           <input placeholder="email" type="text" id="email" />
-          <button type="button" class="btn">criar</button>
+          <button type="button" class="btn">Criar</button>
+        </form>
+      </div>
+
+      <!-- modal edit-->
+      <div class="modal__edit">
+        <button class="close__modal__create" onclick="changeModalEdit()">
+          X
+        </button>
+        <form>
+          <h1>editar usuario</h1>
+          <input placeholder="nome" type="hidden" id="index" />
+          <input placeholder="nome" type="text" id="nome__edit" />
+          <input placeholder="idade" type="number" id="idade__edit" />
+          <input placeholder="email" type="text" id="email__edit" />
+          <button type="button" class="btn" onclick="saveData()">Salvar</button>
         </form>
       </div>
 
@@ -33,18 +49,88 @@
           <th>email</th>
           <th>ações</th>
         </thead>
-        <tbody>
-          <tr>
-            <td>lauricio</td>
-            <td>22</td>
-            <td>developer@gmail.com</td>
-            <td id="td__buttons">
-              <button id="remove__btn">X</button>
-              <button id="edit__btn">|</button>
-            </td>
-          </tr>
-        </tbody>
+        <tbody id="tbody"></tbody>
       </table>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      let modal = document.querySelector(".modal__create");
+      let modalEdit = document.querySelector(".modal__edit");
+      let tbody = document.getElementById("tbody");
+
+      //open/close modal
+      function changeModal() {
+        modal.classList.toggle("opened");
+      }
+      //open/close modaledit
+      function changeModalEdit() {
+        modalEdit.classList.toggle("openededit");
+      }
+
+      axios
+        .get("http://localhost:3000/users")
+        .then((response) => {
+          let dados = response.data;
+
+          dados.forEach((user) => {
+            let tr = document.createElement("tr");
+            tr.innerHTML = `
+          <td>${user.nome}</td>
+            <td>${user.idade}</td>
+            <td>${user.email}</td>
+            <td id="td__buttons">
+              <button id="remove__btn" data-id=${user.id}>X</button>
+              <button id="edit__btn" data-id=${user.id} >|</button>
+            </td>
+          `;
+
+            tbody.appendChild(tr);
+          });
+        })
+        .catch((erro) => {
+          console.log(erro);
+        });
+
+      function saveData() {
+        let id = document.getElementById("index").value;
+        let nome = document.getElementById("nome__edit").value;
+        let idade = document.getElementById("idade__edit").value;
+        let email = document.getElementById("email__edit").value;
+
+        let user = {
+          nome: nome,
+          idade: idade,
+          email: email,
+        };
+
+        axios
+          .put("http://localhost:3000/user/" + id, user)
+          .then((response) => {
+            alert("usuario " + nome + " foi atualizado");
+            window.location.reload();
+          })
+          .catch((erro) => {
+            console.log(erro);
+          });
+      }
+
+      tbody.addEventListener("click", (event) => {
+        let element = event.target;
+        let id = element.dataset.id;
+        if (element.id == "remove__btn") {
+          console.log("removendo");
+        }
+        if (element.id == "edit__btn") {
+          axios.get("http://localhost:3000/user/" + id).then((response) => {
+            let dados = response.data;
+            document.getElementById("index").value = dados.id;
+            document.getElementById("nome__edit").value = dados.nome;
+            document.getElementById("idade__edit").value = dados.idade;
+            document.getElementById("email__edit").value = dados.email;
+            changeModalEdit();
+          });
+        }
+      });
+    </script>
   </body>
 </html>

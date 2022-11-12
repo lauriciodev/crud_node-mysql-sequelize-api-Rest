@@ -38,6 +38,22 @@ router.get("/users", (req, res) => {
     });
 });
 
+router.get("/user/:id", (req, res) => {
+  userModel
+    .findOne({
+      where: {
+        id: req.params.id,
+      },
+    })
+    .then((response) => {
+      res.statusCode = 200;
+      res.json(response);
+    })
+    .catch((erro) => {
+      res.sendStatus(400);
+    });
+});
+
 //deletando dados
 router.delete("/user/:id", (req, res) => {
   userModel

@@ -1,0 +1,97 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: #292929;
+}
+
+.container {
+  width: 100wh;
+  height: 100vh;
+  background-color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 30px 0px;
+}
+
+.table {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  background-color: #031634;
+  border-collapse: collapse;
+  border: 2px solid #ffffff;
+}
+
+.table thead {
+  background-color: #d1dbc8;
+}
+
+.table thead th {
+  padding: 5px;
+}
+
+.table tbody tr td {
+  padding: 3px;
+  color: #ffffff;
+}
+
+#td__buttons {
+  display: flex;
+  gap: 2px;
+}
+
+#remove__btn {
+  padding: 3px;
+  transition: all 0.3s;
+  border: 1px solid #fff;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  width: 100%;
+  background-color: rgb(202, 77, 68);
+}
+#edit__btn {
+  padding: 3px;
+  transition: all 0.3s;
+  border: 1px solid #fff;
+  color: #ffffff;
+  cursor: pointer;
+  width: 100%;
+  background-color: rgb(31, 33, 136);
+}
+
+#remove__btn:hover {
+  border: 1px solid #fff;
+  color: #ffffff;
+  cursor: pointer;
+  width: 100%;
+  background-color: rgb(173, 24, 24);
+}
+#edit__btn:hover {
+  border: 1px solid #fff;
+  color: #ffffff;
+  cursor: pointer;
+  width: 100%;
+  background-color: rgb(36, 38, 168);
+}
+
+/* ========================
+ */
+
+.callModal {
+  transition: all 0.4s;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 70px;
+  height: 40px;
+  font-size: 1.1rem;
+  background-color: #031430cc;
+  border: 1px solid #022f58;
+  color: #fff;
+  cursor: pointer;
+}
+
+.callModal:hover {
+  background-color: #031634;
+}

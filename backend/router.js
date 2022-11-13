@@ -122,23 +122,24 @@ router.post("/auth", (req, res) => {
         },
       })
       .then((response) => {
-        if (response) {
+        if (response != undefined) {
           if (response.password == password) {
             res.json({ token: "token de auth" });
-            res.sendStatus(200);
+            res.status(200);
           } else {
-            res.sendStatus(401);
+            res.status(401);
             res.json({ erro: "credenciais inválidas" });
           }
         } else {
-          res.sendStatus(404);
+          res.status(404);
+          res.json({ err: "o email inserido não pode ser encontrado!" });
         }
       })
       .catch((erro) => {
         console.log(erro);
       });
   } else {
-    res.sendStatus(200);
+    res.status(404);
     res.json({ err: "o email inserido não pode ser encontrado!" });
   }
 });

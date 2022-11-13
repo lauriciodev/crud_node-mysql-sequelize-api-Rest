@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const connection = require("./database/connection");
 const userModel = require("./database/models/users");
+const loginModel = require("./database/models/login");
 const cors = require("cors");
 
 app.use(cors());

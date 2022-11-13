@@ -3,6 +3,9 @@ const express = require("express");
 const userModel = require("./database/models/users");
 const loginModel = require("./database/models/login");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
+
+const jwtSecret = "lauriciomestreweb";
 
 router.get("/", (req, res) => {
   res.send("seja bem vindo!");
@@ -115,7 +118,7 @@ router.post("/auth", (req, res) => {
   let { email, password } = req.body;
 
   if (email != undefined) {
-    let user = loginModel
+    loginModel
       .findOne({
         where: {
           email: email,
@@ -124,8 +127,20 @@ router.post("/auth", (req, res) => {
       .then((response) => {
         if (response != undefined) {
           if (response.password == password) {
-            res.json({ token: "token de auth" });
-            res.status(200);
+            jwt.sign(
+              { email: email },
+              jwtSecret,
+              { expiresIn: "48h" },
+              (erro, token) => {
+                if (erro) {
+                  res.status(400);
+                  res.json({ erro: "falha interna" });
+                } else {
+                  res.status(200);
+                  res.json({ token: token });
+                }
+              }
+            );
           } else {
             res.status(401);
             res.json({ erro: "credenciais inválidas" });

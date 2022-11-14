@@ -33,12 +33,8 @@ function auth(req, res, next) {
   }
 }
 
-router.get("/", (req, res) => {
-  res.send("seja bem vindo!");
-});
-
 //enviando dados para o banco
-router.post("/user", (req, res) => {
+router.post("/user", auth, (req, res) => {
   let { nome, idade, email } = req.body;
   userModel
     .create({
@@ -68,7 +64,7 @@ router.get("/users", auth, (req, res) => {
     });
 });
 
-router.get("/user/:id", (req, res) => {
+router.get("/user/:id", auth, (req, res) => {
   userModel
     .findOne({
       where: {
@@ -85,7 +81,7 @@ router.get("/user/:id", (req, res) => {
 });
 
 //deletando dados
-router.delete("/user/:id", (req, res) => {
+router.delete("/user/:id", auth, (req, res) => {
   userModel
     .destroy({ where: { id: req.params.id } })
     .then((response) => {
@@ -98,7 +94,7 @@ router.delete("/user/:id", (req, res) => {
 
 //atualizando dados;
 
-router.put("/user/:id", (req, res) => {
+router.put("/user/:id", auth, (req, res) => {
   let { nome, idade, email } = req.body;
   userModel
     .update(
@@ -123,7 +119,7 @@ router.put("/user/:id", (req, res) => {
 
 //login model
 
-router.post("/login", (req, res) => {
+router.post("/login", auth, (req, res) => {
   let { email, password } = req.body;
 
   loginModel

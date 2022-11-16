@@ -43,6 +43,23 @@
       </div>
 
       <h1>crud users</h1>
+      <form>
+        <input
+          required
+          placeholder="email"
+          type="text"
+          name="email"
+          id="email__log"
+        />
+        <input
+          required
+          placeholder="********"
+          type="text"
+          name="pass"
+          id="pass__log"
+        />
+        <button type="button" onclick="login()">logar</button>
+      </form>
 
       <table border class="table">
         <thead>
@@ -56,6 +73,27 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+      function login() {
+        let emailField = document.getElementById("email__log");
+        let passField = document.getElementById("pass__log");
+        let email = emailField.value;
+        let pass = passField.value;
+
+        axios
+          .post("http://localhost:3000/auth", {
+            email: email,
+            password: pass,
+          })
+          .then((response) => {
+            let token = response.data.token;
+            localStorage.setItem("token", token);
+            window.location.reload();
+          })
+          .catch((erro) => {
+            alert("usuario invalido");
+          });
+      }
+
       let modal = document.querySelector(".modal__create");
       let modalEdit = document.querySelector(".modal__edit");
       let tbody = document.getElementById("tbody");
@@ -71,9 +109,7 @@
 
       let axiosConfig = {
         headers: {
-          Authorization:
-            "Bearer " +
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlQGdtYWlsLmNvbSIsImlhdCI6MTY2ODQ3NTEwNywiZXhwIjoxNjY4NjQ3OTA3fQ.XZ0F6na7tPhVgnV4t6aN4m6mQZke3Bfj8wjJbgR_A6E",
+          Authorization: "Bearer " + localStorage.getItem("token"),
         },
       };
 

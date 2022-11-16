@@ -43,6 +43,7 @@ router.post("/user", auth, (req, res) => {
       email: email,
     })
     .then((resolve) => {
+      res.json(resolve);
       res.sendStatus(200);
     })
     .catch((erro) => {
@@ -128,11 +129,11 @@ router.post("/login", auth, (req, res) => {
       password: password,
     })
     .then((response) => {
-      res.sendStatus(200);
+      res.status(200);
     })
     .catch((erro) => {
       console.log(erro);
-      res.sendStatus(400);
+      res.status(400);
     });
 });
 

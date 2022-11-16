@@ -69,8 +69,16 @@
         modalEdit.classList.toggle("openededit");
       }
 
+      let axiosConfig = {
+        headers: {
+          Authorization:
+            "Bearer " +
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlQGdtYWlsLmNvbSIsImlhdCI6MTY2ODQ3NTEwNywiZXhwIjoxNjY4NjQ3OTA3fQ.XZ0F6na7tPhVgnV4t6aN4m6mQZke3Bfj8wjJbgR_A6E",
+        },
+      };
+
       axios
-        .get("http://localhost:3000/users")
+        .get("http://localhost:3000/users", axiosConfig)
         .then((response) => {
           let dados = response.data;
 
@@ -105,7 +113,7 @@
         };
 
         axios
-          .post("http://localhost:3000/user", user)
+          .post("http://localhost:3000/user", axiosConfig, user)
           .then((response) => {
             alert("usuario criado com sucesso!");
             window.location.reload();
@@ -128,7 +136,7 @@
         };
 
         axios
-          .put("http://localhost:3000/user/" + id, user)
+          .put("http://localhost:3000/user/" + id, user, axiosConfig)
           .then((response) => {
             alert("usuario " + nome + " foi atualizado");
             window.location.reload();
@@ -143,19 +151,21 @@
         let id = element.dataset.id;
         if (element.id == "remove__btn") {
           if (confirm("deseja realmente deletar este usuario ?")) {
-            axios.delete("http://localhost:3000/user/" + id);
+            axios.delete("http://localhost:3000/user/" + id, axiosConfig);
             window.location.reload();
           }
         }
         if (element.id == "edit__btn") {
-          axios.get("http://localhost:3000/user/" + id).then((response) => {
-            let dados = response.data;
-            document.getElementById("index").value = dados.id;
-            document.getElementById("nome__edit").value = dados.nome;
-            document.getElementById("idade__edit").value = dados.idade;
-            document.getElementById("email__edit").value = dados.email;
-            changeModalEdit();
-          });
+          axios
+            .get("http://localhost:3000/user/" + id, axiosConfig)
+            .then((response) => {
+              let dados = response.data;
+              document.getElementById("index").value = dados.id;
+              document.getElementById("nome__edit").value = dados.nome;
+              document.getElementById("idade__edit").value = dados.idade;
+              document.getElementById("email__edit").value = dados.email;
+              changeModalEdit();
+            });
         }
       });
     </script>

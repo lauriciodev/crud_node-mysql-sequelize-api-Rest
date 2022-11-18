@@ -43,22 +43,6 @@ caso essa resposta você resceberá a listagem dos usuarios
             "email": "lauriciomalek@gmail.com",
             "createdAt": "2022-11-18T12:27:27.000Z",
             "updatedAt": "2022-11-18T12:27:27.000Z"
-      },
-      {
-            "id": 30,
-            "nome": "lauricio",
-            "idade": "22",
-            "email": "lauriciomalek@gmail.com",
-            "createdAt": "2022-11-18T12:55:02.000Z",
-            "updatedAt": "2022-11-18T12:55:02.000Z"
-      },
-      {
-            "id": 31,
-            "nome": "marina",
-            "idade": "22",
-            "email": "lauricio@gmail.com",
-            "createdAt": "2022-11-18T13:57:05.000Z",
-            "updatedAt": "2022-11-18T13:57:05.000Z"
       }
 ]
 ```

@@ -152,7 +152,9 @@
         axios
           .post("http://localhost:3000/user", user, axiosConfig)
           .then((response) => {
-            alert("usuario criado com sucesso!");
+            if (response.status == 200) {
+              alert("usuario criado com sucesso!");
+            }
           })
           .catch((erro) => {
             console.log(erro);

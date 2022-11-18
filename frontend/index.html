@@ -73,6 +73,12 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+      let axiosConfig = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      };
+
       function login() {
         let emailField = document.getElementById("email__log");
         let passField = document.getElementById("pass__log");
@@ -107,12 +113,6 @@
       function changeModalEdit() {
         modalEdit.classList.toggle("openededit");
       }
-
-      let axiosConfig = {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      };
 
       axios
         .get("http://localhost:3000/users", axiosConfig)

@@ -60,3 +60,51 @@ caso esse resposta houve algum durante o processo de autenticação de requisiç
       "erro": "token invalido"
 }
 ```
+
+
+### POST /auth 
+esse endpoint é responsável por fazer o processo de login;
+### Parametros :
+email:"email cadastrado",
+password:"senha correspondente ao email"
+
+
+### exemplo:
+```
+{
+
+      "email":"lauricio@gmail.com",
+      "password":"lauricio22"
+}
+```
+
+
+#### Respostas:
+
+
+#### ok! 200
+
+caso essa resposta você resceberá o token jwt para conseguir acessar endpoints protejidos
+
+## exemplo de resposta:
+
+```
+{
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxhdXJpY2lvQGdtYWlsLmNvbSIsImlhdCI6MTY2ODc4MTA2NywiZXhwIjoxNjY4OTUzODY3fQ.uvbWW0bBcWM2MOIY5o0waw58V9bYVdJtsiXvTzfBR5I"
+}
+```
+
+#### Falha na altenticação ! 401
+
+caso esse resposta houve algum durante o processo de autenticação de requisição.
+
+#### possiveis erros : senha/email incorretos.
+
+### exemplo de resposta:
+
+```
+{
+      "erro": "credenciais inválidas"
+}
+```
+

@@ -52,3 +52,11 @@ caso essa resposta você resceberá a listagem dos usuarios
 caso esse resposta houve algum durante o processo de autenticação de requisição.
 
 #### possiveis erros : token inválido, token expirado.
+
+### exemplo de resposta:
+
+```
+{
+      "erro": "token invalido"
+}
+```

@@ -150,10 +150,9 @@
         };
 
         axios
-          .post("http://localhost:3000/user", axiosConfig, user)
+          .post("http://localhost:3000/user", user, axiosConfig)
           .then((response) => {
             alert("usuario criado com sucesso!");
-            window.location.reload();
           })
           .catch((erro) => {
             console.log(erro);
